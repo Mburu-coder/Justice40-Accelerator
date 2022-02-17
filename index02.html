@@ -1,0 +1,265 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Import Web Map | ArcGIS API for JavaScript 4.22</title>
+
+    <style>
+      html,
+      body,
+      .wrapper,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      #hover {
+        display: none;
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    position: absolute;
+    z-index: 1000;
+    }
+    </style>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.22/esri/themes/light/main.css" />
+    <script type="text/javascript">
+        var dojoConfig = {
+          async: true
+        };
+      
+      </script>
+    <script src="https://js.arcgis.com/4.22/"></script>
+
+    <script>
+      require(["esri/Map", "esri/views/MapView", "esri/WebMap","esri/layers/FeatureLayer", "dojo/on", 'dojo/dom', 'dojo/dom-style', "dojo/domReady!"], (Map, MapView, WebMap,FeatureLayer, on, dom, domStyle) => {
+        const map = new Map({
+          basemap: "topo-vector"
+        });
+
+        const view = new MapView({
+        map: map,
+        container: "viewDiv",
+        zoom: 4.5,
+        center: [-101.865, 39.6]
+       });
+
+// Define a pop-up for Trailheads
+const popupTrailheads = {
+        "title": " ",
+        "content": "<b>{Organizati} </b> <br /> {Website} <br> <br> Project Name: {Project_Na} <br> City/State: {City_State} <br> Focus: {Focus_Area} <br> <br> During the early days of agriculture and poverty, temples occasionally host new year events and create pastry from stored rice, embellished with turtle shell patterns. People on the island would return turtle pastry as gratitude for the gods. Over the years, the turtle patterns became a symbol of luck and prosperity. In the present day, “turtle begging” is still an annual tradition. During the early days of agriculture and poverty, temples occasionally host new year events and create pastry from"
+      }
+
+    const f11 = new FeatureLayer({
+        portalItem: {
+            // autocasts as new PortalItem()
+            id: "ccaa2534909a4c8881e060b8fe265d85"
+          },
+    outFields: ['*'],
+    popupTemplate: popupTrailheads
+      });
+
+      map.add(f11);
+
+      const f22 = new FeatureLayer({
+        portalItem: {
+            // autocasts as new PortalItem()
+            id: "05e58e586cd541dea6d83da79ce76ae1"
+          },
+    outFields: ['*'],
+    popupTemplate: popupTrailheads
+      });
+
+      map.add(f22);
+
+          const f33 = new FeatureLayer({
+        portalItem: {
+            // autocasts as new PortalItem()
+            id: "0e6ca633049145a5bf599c37b264f88f"
+          },
+    outFields: ['*'],
+    popupTemplate: popupTrailheads
+      });
+
+      map.add(f33);
+
+          const f44 = new FeatureLayer({
+        portalItem: {
+            // autocasts as new PortalItem()
+            id: "524a00faa9e34f4eb65b0b98efa89038"
+          },
+    outFields: ['*'],
+    popupTemplate: popupTrailheads
+      });
+
+      map.add(f44);
+
+          const f55 = new FeatureLayer({
+        portalItem: {
+            // autocasts as new PortalItem()
+            id: "68e10af60d1f4e9abda34d0fd76dd901"
+          },
+    outFields: ['*'],
+    popupTemplate: popupTrailheads
+      });
+
+      map.add(f55);     
+        /************************************************
+         *
+         * Create a layer from an existing Portal item hosted
+         * in ArcGIS Online using the ID of the item.
+         *
+         *************************************************/
+         var f1 = new FeatureLayer({
+  	portalItem: {
+            // autocasts as new PortalItem()
+            id: "ccaa2534909a4c8881e060b8fe265d85"
+          },
+    outFields: ['*']
+  });
+  map.layers.add(f1);
+
+  var f2 = new FeatureLayer({
+  	portalItem: {
+            // autocasts as new PortalItem()
+            id: "ee104ed8d5b84a1ca7d0c38d7950bc3f"
+          },
+    outFields: ['*']
+  });
+  map.layers.add(f2);
+
+  var f3 = new FeatureLayer({
+  	portalItem: {
+            // autocasts as new PortalItem()
+            id: "98cb0bb98756495fa5c150bf5ea03967"
+          },
+    outFields: ['*']
+  });
+  map.layers.add(f3);
+
+  var f4 = new FeatureLayer({
+  	portalItem: {
+            // autocasts as new PortalItem()
+            id: "3920fe4743984611a2b1612f0d90568b"
+          },
+    outFields: ['*']
+  });
+  map.layers.add(f4);
+
+  var f5 = new FeatureLayer({
+  	portalItem: {
+            // autocasts as new PortalItem()
+            id: "ac7b8aecc000489eb74c9e315f5dc4e6"
+          },
+    outFields: ['*']
+  });
+  map.layers.add(f5);
+
+  view.on("pointer-move", function (event) { 
+         view.hitTest(event).then(function (response) { 
+           if (response.results.length) { 
+             var graphic = response.results.filter(function (result) { 
+               // check if the graphic belongs to the layer of interest 
+               return result.graphic.layer === f1;
+             })[0].graphic; 
+             view.popup.open({ 
+               location: graphic.geometry.centroid, 
+               features: [graphic] 
+             }); 
+           } else { 
+             view.popup.close(); 
+           } 
+         }); 
+       }); 
+
+       view.on("pointer-move", function (event) { 
+         view.hitTest(event).then(function (response) { 
+           if (response.results.length) { 
+             var graphic = response.results.filter(function (result) { 
+               // check if the graphic belongs to the layer of interest 
+               return result.graphic.layer === f2;
+             })[0].graphic; 
+             view.popup.open({ 
+               location: graphic.geometry.centroid, 
+               features: [graphic] 
+             }); 
+           }
+           else { 
+            view.popup.close();
+           } 
+         }); 
+       });
+
+       view.on("pointer-move", function (event) { 
+         view.hitTest(event).then(function (response) { 
+           if (response.results.length) { 
+             var graphic = response.results.filter(function (result) { 
+               // check if the graphic belongs to the layer of interest 
+               return result.graphic.layer === f3;
+             })[0].graphic; 
+             view.popup.open({ 
+               location: graphic.geometry.centroid, 
+               features: [graphic] 
+             }); 
+           }
+           else { 
+            view.popup.close();
+           } 
+         }); 
+       });
+
+       view.on("pointer-move", function (event) { 
+         view.hitTest(event).then(function (response) { 
+           if (response.results.length) { 
+             var graphic = response.results.filter(function (result) { 
+               // check if the graphic belongs to the layer of interest 
+               return result.graphic.layer === f4;
+             })[0].graphic; 
+             view.popup.open({ 
+               location: graphic.geometry.centroid, 
+               features: [graphic] 
+             }); 
+           }
+           else { 
+            view.popup.close();
+           } 
+         }); 
+       });
+
+       view.on("pointer-move", function (event) { 
+         view.hitTest(event).then(function (response) { 
+           if (response.results.length) { 
+             var graphic = response.results.filter(function (result) { 
+               // check if the graphic belongs to the layer of interest 
+               return result.graphic.layer === f5;
+             })[0].graphic; 
+             view.popup.open({ 
+               location: graphic.geometry.centroid, 
+               features: [graphic] 
+             }); 
+           }
+           else { 
+            view.popup.close();
+           } 
+         }); 
+       });
+     });
+
+
+    </script>
+  </head>
+
+  <body>
+    <!--<div id="viewDiv"></div>-->
+    
+    <div class="wrapper">
+        <div id="viewDiv"></div>
+        <div id="hover">
+        </div>
+        </div>
+  </body>
+</html>
